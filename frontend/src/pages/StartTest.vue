@@ -1,14 +1,16 @@
 <template>
-	<base-card v-for="question in quizdata" :key="question">
-		<p class="text-center text-lg font-semi-bold">1/4</p>
+	<base-card>
+		<p class="text-center text-lg font-semi-bold">
+			{{ `${currentQuiz + 1} / ${showQuestions.length}` }}
+		</p>
 		<h2 class="text-3xl m-0 p-4 text-center">
-			{{ question.question }}
+			{{ currentQuestion.question }}
 		</h2>
 		<ul class="list-none">
 			<question-list
-				:int="question.int"
-				:extr="question.extr"
-				:ambi="question.ambi"
+				:int="currentQuestion.int"
+				:extr="currentQuestion.extr"
+				:ambi="currentQuestion.ambi"
 				@submitted-form="submitQuestion"
 			></question-list>
 		</ul>
@@ -27,58 +29,54 @@ export default {
 	//     if()
 	//   }
 	// },
-	methods: {
-		loadQuiz() {
-			const currentQuizdata = this.questions[this.currentQuiz]
-			this.quizdata.push(currentQuizdata)
+	created() {
+		this.loadQuestion()
+	},
+
+	computed: {
+		showQuestions() {
+			return this.$store.getters['questions']
 		},
+	},
+
+	methods: {
+		loadQuestion() {
+			this.currentQuestion = this.showQuestions[this.currentQuiz]
+		},
+		addIntroPoint() {
+			this.$store.dispatch('addIntro', 1)
+		},
+		addExtroPoint() {
+			this.$store.dispatch('addExtro', 1)
+		},
+		addAmbiPoint() {
+			this.$store.dispatch('addAmbi', 1)
+		},
+
 		submitQuestion(value) {
 			if (value === 'i') {
-				this.introscore++
+				this.addIntroPoint()
 			}
 			if (value === 'a') {
-				this.ambiScore++
+				this.addAmbiPoint()
 			}
 			if (value === 'e') {
-				this.extroscore++
+				this.addExtroPoint()
 			}
-			console.log('should now show next')
 			this.currentQuiz++
-			if (this.currentQuiz < this.questions.length) {
-				this.loadQuiz()
+
+			if (this.currentQuiz < this.showQuestions.length) {
+				this.loadQuestion()
 			} else {
 				this.$router.push('/result')
 			}
 		},
 	},
 
-	created() {
-		this.loadQuiz()
-	},
-
 	data() {
 		return {
+			currentQuestion: {},
 			currentQuiz: 0,
-			introscore: 0,
-			extroscore: 0,
-			ambiScore: 0,
-			quizdata: [],
-			questions: [
-				{
-					question: 'Which language runs in a web browser?',
-
-					int: 'Java',
-					extr: 'C',
-					ambi: 'Python',
-				},
-				{
-					question: 'Second Question runs in a web browser?',
-
-					int: 'Java',
-					extr: 'C',
-					ambi: 'Python',
-				},
-			],
 		}
 	},
 }

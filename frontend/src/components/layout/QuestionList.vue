@@ -1,5 +1,5 @@
 <template>
-	<form @submit.prevent="submitForm">
+	<form class="w-full" @submit.prevent="submitForm">
 		<li
 			class="flex items-center pl-4 rounded border border-gray-200 hover:bg-green-500"
 		>
