@@ -6,10 +6,11 @@
 		<h2 class="text-3xl m-0 p-4 text-center">
 			{{ currentQuestion.question }}
 		</h2>
+		<base-spinner v-if="isLoading"></base-spinner>
 		<ul class="list-none">
 			<question-list
-				:int="currentQuestion.int"
-				:extr="currentQuestion.extr"
+				:int="currentQuestion.intro"
+				:extr="currentQuestion.extro"
 				:ambi="currentQuestion.ambi"
 				@submitted-form="submitQuestion"
 			></question-list>
@@ -29,9 +30,14 @@ export default {
 	//     if()
 	//   }
 	// },
-	created() {
+	async created() {
+		await this.fetchQuestions()
 		this.loadQuestion()
 	},
+
+	// mounted() {
+
+	// },
 
 	computed: {
 		showQuestions() {
@@ -40,9 +46,19 @@ export default {
 	},
 
 	methods: {
+		async fetchQuestions() {
+			this.isLoading = true
+			try {
+				await this.$store.dispatch('setQuestions')
+			} catch (error) {
+				this.error = 'Something went wrong'
+			}
+			this.isLoading = false
+		},
 		loadQuestion() {
 			this.currentQuestion = this.showQuestions[this.currentQuiz]
 		},
+
 		addIntroPoint() {
 			this.$store.dispatch('addIntro', 1)
 		},
@@ -75,6 +91,8 @@ export default {
 
 	data() {
 		return {
+			error: '',
+			isLoading: false,
 			currentQuestion: {},
 			currentQuiz: 0,
 		}

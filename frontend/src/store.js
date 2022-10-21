@@ -26,6 +26,26 @@ const actions = {
 		payload = 0
 		context.commit('refreshScores', payload)
 	},
+
+	async setQuestions(context) {
+		const response = await fetch(
+			'https://vue-demo-92e6c-default-rtdb.firebaseio.com/questions.json'
+		)
+		const responseData = await response.json()
+
+		const questions = []
+		for (const key in responseData) {
+			const question = {
+				question: responseData[key].question,
+				intro: responseData[key].int,
+				ambi: responseData[key].ambi,
+				extro: responseData[key].extr,
+			}
+			questions.push(question)
+		}
+
+		context.commit('setQuestions', questions)
+	},
 }
 const mutations = {
 	addIntro(state, payload) {
@@ -42,27 +62,15 @@ const mutations = {
 		state.introscore = payload
 		state.extroscore = payload
 	},
+	setQuestions(state, payload) {
+		state.questions = payload
+	},
 }
 
 const store = createStore({
 	state() {
 		return {
-			questions: [
-				{
-					question: 'To prepare for a night out...',
-
-					int: 'Prepare? My friends have to drag me out most nights.',
-					extr: 'I buy the latest outfit, tell my friends, then dance the night away.',
-					ambi: 'Call a few of my closest friends to see if they will be there..',
-				},
-				{
-					question: 'Second Question runs in a web browser?',
-
-					int: 'Java',
-					extr: 'C',
-					ambi: 'Python',
-				},
-			],
+			questions: [],
 			introscore: 0,
 			extroscore: 0,
 			ambiscore: 0,
