@@ -51,6 +51,9 @@
 				>{{ extr }}</label
 			>
 		</li>
+		<p v-if="error" class="text-sm font-thin text-red-500">
+			Please select one option
+		</p>
 		<base-button class="w-full mt-4">Submit</base-button>
 	</form>
 </template>
@@ -62,12 +65,20 @@ export default {
 			introvert: 'i',
 			ambivert: 'a',
 			extrovert: 'e',
+			error: false,
+			value: null,
 		}
 	},
-	props: ['int', 'extr', 'value', 'ambi'],
+	props: ['int', 'extr', 'ambi'],
 	methods: {
 		submitForm() {
-			this.$emit('submitted-form', this.value)
+			if (this.value === null) {
+				this.error = true
+			} else {
+				this.error = false
+				this.$emit('submitted-form', this.value)
+			}
+			this.value = null
 		},
 	},
 }
