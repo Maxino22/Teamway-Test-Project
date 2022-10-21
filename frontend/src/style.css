@@ -3,4 +3,14 @@
 @tailwind components;
 @tailwind utilities;
 
-
+@layer components {
+	.list-item {
+		@apply flex items-center py-4 px-6 mb-2 rounded border border-gray-200 hover:bg-green-500;
+	}
+	.radio {
+		@apply w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500;
+	}
+	.label {
+		@apply py-4 ml-2 w-full text-sm font-medium text-gray-900;
+	}
+}
