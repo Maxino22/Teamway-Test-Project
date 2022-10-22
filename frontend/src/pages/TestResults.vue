@@ -3,7 +3,7 @@
 		<h2 class="text-3xl font-bold p-3 text-center">
 			You are an {{ winnerText }}
 		</h2>
-		<img class="w-40 h-40" :src="`../../public/assets/${imageCon}`" alt="" />
+		<img class="w-40 h-40" :src="imageCon" alt="" />
 		<base-button @click="reTake" class="w-full">Re-take Test</base-button>
 	</base-card>
 </template>
@@ -15,6 +15,7 @@ export default {
 			introWins: false,
 			ambiwins: false,
 			extrowins: false,
+			isLoading: false,
 		}
 	},
 	computed: {
@@ -23,13 +24,13 @@ export default {
 		},
 		imageCon() {
 			if (this.introWins) {
-				return 'introvert.png'
+				return 'https://res.cloudinary.com/maxino/image/upload/v1666420326/assets/Teamway_vue/introvert_sv9lqh.png'
 			}
 			if (this.extrowins) {
-				return 'Extrovert.png'
+				return 'https://res.cloudinary.com/maxino/image/upload/v1666420326/assets/Teamway_vue/Extrovert_ch6mpk.png'
 			}
 			if (this.ambiwins) {
-				return 'Ambivert.png'
+				return 'https://res.cloudinary.com/maxino/image/upload/v1666420326/assets/Teamway_vue/Ambivert_tvx5im.png'
 			}
 		},
 		winnerText() {
