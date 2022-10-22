@@ -3,24 +3,7 @@
 		<h2 class="text-3xl font-bold p-3 text-center">
 			You are an {{ winnerText }}
 		</h2>
-		<img
-			class="w-40 h-40"
-			v-if="introWins"
-			src="../assets/Introvert.png"
-			alt=""
-		/>
-		<img
-			class="w-40 h-40"
-			v-if="extrowins"
-			src="../assets/Extrovert.png"
-			alt=""
-		/>
-		<img
-			class="w-40 h-40"
-			v-if="ambiwins"
-			src="../assets/Ambivert.png"
-			alt=""
-		/>
+		<img class="w-40 h-40" :src="`../../public/assets/${imageCon}`" alt="" />
 		<base-button @click="reTake" class="w-full">Re-take Test</base-button>
 	</base-card>
 </template>
