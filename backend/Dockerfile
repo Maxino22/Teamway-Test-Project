@@ -7,7 +7,7 @@ COPY requirements.txt ./
 RUN pip install -r requirements.txt
 COPY . .
 
-RUN python manage.py collectstatics --noinput
+RUN python manage.py collectstatic --noinput
 EXPOSE 80
 
 CMD ["gunicorn", "personality_test.wsgi:application" "--bind" "0.0.0.0:80"]
