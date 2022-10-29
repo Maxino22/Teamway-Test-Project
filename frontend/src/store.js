@@ -29,7 +29,7 @@ const actions = {
 
 	async setQuestions(context) {
 		const response = await fetch(
-			'https://api.personality.maxino.xyz:80/questions/'
+			'https://api.personality.maxino.xyz/questions/'
 		)
 		const responseData = await response.json()
 
