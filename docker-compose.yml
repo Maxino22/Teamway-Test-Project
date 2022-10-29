@@ -4,17 +4,15 @@ services:
   frontend:
     build: ./frontend
     container_name: personality
-    ports:
-      - 8000:80
+    # ports:
+    # - 8000:80
   api:
     build: ./backend
-    volumes:
-      - ./backend:/app
     container_name: personality-api
     env_file:
       - ./backend/.env
-    ports:
-      - 8001:80
+    # ports:
+    # - 8001:80
 
 networks:
   default:
