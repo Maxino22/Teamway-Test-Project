@@ -21,13 +21,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-=2qp$asikaqupu0-tdt1rms9dlz4a$e78@sn(j+)2=#+y82@lc'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 ALLOWED_HOSTS = [
-    "api.personality.maxino.xyz"
+    "api.personality.maxino.xyz",
+    '127.0.0.1'
 ]
 
 
@@ -83,8 +85,14 @@ WSGI_APPLICATION = 'personality_test.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': os.getenv('ENGINE'),
+        'CLIENT': {
+            "name": os.getenv('DB_NAME'),
+            "host": os.getenv('HOST'),
+            "username": os.getenv('USERNAME'),
+            "password": os.getenv('PASSWORD'),
+            "authMechanism": os.getenv('AUTHMECHANISM'),
+        }
     }
 }
 
