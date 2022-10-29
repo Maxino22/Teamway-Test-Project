@@ -28,7 +28,9 @@ const actions = {
 	},
 
 	async setQuestions(context) {
-		const response = await fetch('http://api:80/questions/')
+		const response = await fetch(
+			'https://api.personality.maxino.xyz:80/questions/'
+		)
 		const responseData = await response.json()
 
 		const questions = []

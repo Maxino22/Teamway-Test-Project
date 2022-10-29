@@ -10,4 +10,4 @@ COPY . .
 RUN python manage.py collectstatic --noinput
 EXPOSE 80
 
-CMD ["gunicorn", "personality_test.wsgi:application" "--bind" "0.0.0.0:80"]
+CMD ["gunicorn", "personality_test.wsgi:application" ,"--bind" ,"0.0.0.0:80"]
