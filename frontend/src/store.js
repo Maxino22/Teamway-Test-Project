@@ -28,16 +28,14 @@ const actions = {
 	},
 
 	async setQuestions(context) {
-		const response = await fetch(
-			'https://vue-demo-92e6c-default-rtdb.firebaseio.com/questions.json'
-		)
+		const response = await fetch('http://api:80/questions/')
 		const responseData = await response.json()
 
 		const questions = []
 		for (const key in responseData) {
 			const question = {
 				question: responseData[key].question,
-				intro: responseData[key].int,
+				intro: responseData[key].intr,
 				ambi: responseData[key].ambi,
 				extro: responseData[key].extr,
 			}

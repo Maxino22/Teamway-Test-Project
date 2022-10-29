@@ -4,6 +4,9 @@ services:
   frontend:
     build: ./frontend
     container_name: personality
+  api:
+    build: ./backend
+    container_name: personality-api
 
 networks:
   default:
