@@ -28,9 +28,15 @@ const actions = {
 	},
 
 	async setQuestions(context) {
-		const response = await fetch(
-			'https://api.personality.maxino.xyz/questions/'
-		)
+		const environ = 'prod'
+		let url
+		if (environ === 'dev') {
+			url = 'http://127.0.0.1:8000/questions/'
+		} else {
+			url = 'https://api.personality.maxino.xyz/questions/'
+		}
+
+		const response = await fetch(url)
 		const responseData = await response.json()
 
 		const questions = []

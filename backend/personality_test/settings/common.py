@@ -14,23 +14,16 @@ from pathlib import Path
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-
-ALLOWED_HOSTS = [
-    "api.personality.maxino.xyz",
-    '127.0.0.1'
-]
 
 
 # Application definition
@@ -83,19 +76,6 @@ WSGI_APPLICATION = 'personality_test.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': os.getenv('ENGINE'),
-        'CLIENT': {
-            "name": os.getenv('DB_NAME'),
-            "host": os.getenv('HOST'),
-            "username": os.getenv('USERNAME'),
-            "password": os.getenv('PASSWORD'),
-            "authMechanism": os.getenv('AUTHMECHANISM'),
-        }
-    }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -115,12 +95,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-CORS_ALLOWED_ORIGINS = [
-    'http://127.0.0.1:5173',
-    "http://localhost:5173",
-    "https://personality.maxino.xyz"
-]
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/

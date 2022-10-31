@@ -1,19 +1,35 @@
 import QuestionList from '../../src/components/layout/QuestionList.vue'
-import { mount } from '@vue/test-utils'
+import { mount, shallowMount } from '@vue/test-utils'
 
 describe('QuestionList', () => {
-	test('emits an event with value in data payload', () => {
-		const wrapper = mount(QuestionList)
-		const input = wrapper.find('input[type="radio"]')
-		input.setValue('introvert')
-		wrapper.trigger('submit')
+	it('question radios render on  mount', () => {
+		const wrapper = mount(QuestionList, {
+			props: {
+				int: 'some introvert value',
+				extr: 'some extrovert value',
+				ambi: 'some ambivert value',
+			},
+		})
 
-		const formSubmittedCalls = wrapper.emitted('formSubmitted')
-		expect(formSubmittedCalls).toHaveLength(1)
+		expect(wrapper.find('.radio').exists()).toBe(true)
 
-		const expectedPayload = { data: 'introvert' }
-		expect(wrapper.emitted('formSubmitted'))[0][0].toMatchObject(
-			expectedPayload
-		)
+		console.log(wrapper.html())
+	})
+
+	it('Error message shows when no radio selected', async () => {
+		const wrapper = shallowMount(QuestionList)
+		await wrapper.setData({
+			error: true,
+		})
+		expect(wrapper.find('p').exists()).toBe(true)
+		console.log(wrapper.html())
+	})
+	it('Error message hidden when radio selected', async () => {
+		const wrapper = shallowMount(QuestionList)
+		await wrapper.setData({
+			error: false,
+		})
+		expect(wrapper.find('p').exists()).toBe(false)
+		console.log(wrapper.html())
 	})
 })
