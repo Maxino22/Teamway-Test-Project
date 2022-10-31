@@ -50,18 +50,24 @@ export default {
 	},
 	methods: {
 		addWinner() {
-			let list = this.testScore
-			const sortResults = Object.keys(list).sort(function (a, b) {
-				return list[b] - list[a]
-			})
-			const winner = sortResults
-			if (winner[0] === 'intro') {
+			let scores = this.testScore
+			// const sortResults = Object.keys(list).sort(function (a, b) {
+			// 	return list[b] - list[a]
+			// })
+
+			if (scores.intro > scores.ambi && scores.intro > scores.extro) {
 				this.introWins = true
 			}
-			if (winner[0] === 'extro') {
+			if (scores.extro > scores.ambi && scores.extro > scores.intro) {
 				this.extrowins = true
 			}
-			if (winner[0] === 'ambi') {
+			if (scores.ambi > scores.intro && scores.ambi > scores.extro) {
+				this.ambiwins = true
+			}
+			if (scores.intro === scores.extro) {
+				this.ambiwins = true
+			}
+			if (scores.ambi === scores.extro || scores.ambi === scores.intro) {
 				this.ambiwins = true
 			}
 		},
